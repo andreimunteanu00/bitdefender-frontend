@@ -1,0 +1,119 @@
+<div class="card" style="padding: 3em">
+  <div class="add-button">
+    <button class="btn btn-primary" style="align-items: end">
+      <span>Add employee </span>
+      <fa-icon icon="add"></fa-icon>
+    </button>
+    <span *ngIf="employees && employees.length > 0">
+      <item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"> </item-count>
+    </span>
+  </div>
+  <div class="card-body">
+    <div *ngIf="employees?.length === 0">
+      <span>No employee found</span>
+    </div>
+    <div class="table-responsive d-flex justify-content-around" *ngIf="employees && employees.length > 0">
+      <table class="table table-hover table-striped col-centered text-center" aria-describedby="page-heading">
+        <thead class="my-table-head">
+        <tr sort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th scope="col" sortBy="firstName">
+            <span>First Name </span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" sortBy="lastName">
+            <span>Last Name </span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" sortBy="birthDate">
+            <span>Birth Date </span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" sortBy="email">
+            <span>Email </span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col">
+            <span>Roles </span>
+          </th>
+          <th scope="col" sortBy="team.name">
+            <span>Team </span>
+          </th>
+          <th scope="col" sortBy="team.name">
+            <span>Manager </span>
+          </th>
+          <th scope="col" class="col-ms-1"></th>
+        </tr>
+        </thead>
+        <tbody class="text-center">
+          <tr *ngFor="let employee of employees" data-cy="entityTable">
+          <td>{{ employee?.firstName }}</td>
+          <td>{{ employee?.lastName }}</td>
+          <td>{{ employee?.birthDate | formatDate }}</td>
+          <td>{{ employee?.email }}</td>
+          <td>{{ employee?.roles | formatRole }}</td>
+          <td>{{ employee?.team?.name }}</td>
+          <td>{{ employee?.team?.manager?.lastName! + ' '
+            + employee?.team?.manager?.firstName! }}
+          </td>
+          <td class="overflow-hidden">
+            <div ngbDropdown container="body">
+              <button id="casefile-dropdown-toggle{{ employee.id }}" class="fa fa-ellipsis btn" ngbDropdownToggle>
+              </button>
+              <div ngbDropdownMenu>
+                <span>
+                  <button
+                      type="submit"
+                      ngbDropdownItem
+                      class="btn btn-info btn-pill"
+                      triggers="mouseenter:mouseleave"
+                      ngbTooltip="{{ employee.id }}"
+                  >
+                    <fa-icon icon="barcode"></fa-icon>
+                  </button>
+                </span>
+                <button
+                  type="submit"
+                  data-cy="entityDetailsButton"
+                  ngbDropdownItem
+                  [routerLink]="['/casefile-esmd', employee.id, 'view']"
+                  class="btn btn-info btn-sm btn-pill"
+                  triggers="mouseenter:mouseleave"
+                  ngbTooltip="{{ employee.id }}"
+                >
+                  <fa-icon icon="eye"></fa-icon>
+                </button>
+
+                <button
+                  type="submit"
+                  data-cy="entityEditButton"
+                  ngbDropdownItem
+                  [routerLink]="['/casefile-esmd', employee.id, 'edit']"
+                  class="btn btn-primary btn-sm btn-pill"
+                  triggers="mouseenter:mouseleave"
+                  ngbTooltip="{{ employee.id }}"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                </button>
+              </div>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div *ngIf="employees && employees.length > 0">
+  <div id="ngb-pagination" class="pagination">
+    <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="3"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+    >
+    </ngb-pagination>
+  </div>
+</div>
