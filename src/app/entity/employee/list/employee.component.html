@@ -1,6 +1,10 @@
 <div class="card" style="padding: 3em">
-  <div class="add-button">
-    <button class="btn btn-primary" style="align-items: end">
+  <div class="add-button page-heading">
+    <button
+      class="btn btn-danger"
+      [routerLink]="['new']"
+      type="button"
+    >
       <span>Add employee </span>
       <fa-icon icon="add"></fa-icon>
     </button>
@@ -60,39 +64,25 @@
               <button id="casefile-dropdown-toggle{{ employee.id }}" class="fa fa-ellipsis btn" ngbDropdownToggle>
               </button>
               <div ngbDropdownMenu>
-                <span>
-                  <button
-                      type="submit"
-                      ngbDropdownItem
-                      class="btn btn-info btn-pill"
-                      triggers="mouseenter:mouseleave"
-                      ngbTooltip="{{ employee.id }}"
-                  >
-                    <fa-icon icon="barcode"></fa-icon>
-                  </button>
-                </span>
                 <button
                   type="submit"
-                  data-cy="entityDetailsButton"
                   ngbDropdownItem
-                  [routerLink]="['/casefile-esmd', employee.id, 'view']"
-                  class="btn btn-info btn-sm btn-pill"
-                  triggers="mouseenter:mouseleave"
-                  ngbTooltip="{{ employee.id }}"
-                >
-                  <fa-icon icon="eye"></fa-icon>
-                </button>
-
-                <button
-                  type="submit"
-                  data-cy="entityEditButton"
-                  ngbDropdownItem
-                  [routerLink]="['/casefile-esmd', employee.id, 'edit']"
+                  [routerLink]="[employee.id, 'edit']"
                   class="btn btn-primary btn-sm btn-pill"
                   triggers="mouseenter:mouseleave"
-                  ngbTooltip="{{ employee.id }}"
+                  ngbTooltip="Edit"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
+                </button>
+                <button
+                    type="submit"
+                    ngbDropdownItem
+                    (click)="delete(employee)"
+                    class="btn btn-primary btn-sm btn-pill"
+                    triggers="mouseenter:mouseleave"
+                    ngbTooltip="Delete"
+                >
+                  <fa-icon icon="remove"></fa-icon>
                 </button>
               </div>
             </div>

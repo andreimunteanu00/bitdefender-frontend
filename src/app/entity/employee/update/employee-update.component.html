@@ -1,0 +1,86 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div class="card" style="margin-top: 5em">
+      <div class="card-header">
+        <h2>
+          Create or edit an employee
+        </h2>
+      </div>
+      <div class="card-body">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+          <div>
+            <div class="form-group">
+              <label class="form-control-label">First name</label>
+              <input type="text" class="form-control" formControlName="firstName" />
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Last name</label>
+              <input type="text" class="form-control" formControlName="lastName" />
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Email</label>
+              <input type="text" class="form-control" formControlName="email" />
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Birth date</label>
+              <input
+                  class="form-control"
+                  formControlName="birthDate"
+                  type="date"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Roles</label>
+              <ng-select
+                formControlName="roles"
+                [items]="roles"
+                bindLabel="name"
+                [hideSelected]="true"
+                [searchable]="true"
+                [multiple]="true"
+                class="ng-select"
+              >
+                <ng-template ng-option-tmp let-item="item">
+                  <div [title]="item.name">
+                    {{ item.name }}
+                  </div>
+                </ng-template>
+              </ng-select>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Team</label>
+              <ng-select
+                  formControlName="team"
+                  [items]="teams"
+                  bindLabel="name"
+                  [hideSelected]="true"
+                  [searchable]="true"
+                  class="ng-select"
+              >
+                <ng-template ng-option-tmp let-item="item">
+                  <div [title]="item.name">
+                    {{ item.name }}
+                  </div>
+                </ng-template>
+              </ng-select>
+            </div>
+          </div>
+          <div class="text-right" style="margin-top: 1em ">
+            <button type="button" class="btn btn-danger" style="margin-right: 0.3rem" (click)="previousState()">
+              <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+            </button>
+            <button
+                type="submit"
+                id="save-entity"
+                data-cy="entityCreateSaveButton"
+                [disabled]="editForm.invalid || isSaving"
+                class="btn btn-success"
+            >
+              <fa-icon icon="save"></fa-icon>&nbsp;Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

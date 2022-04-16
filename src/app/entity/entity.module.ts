@@ -4,15 +4,24 @@ import {SortDirective} from "../util/directive/sort.directive";
 import {SortByDirective} from "../util/directive/sort-by.directive";
 import {FaIconLibrary, FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {ItemCountComponent} from "../util/pagination/item-count.component";
-import {NgbPaginationModule, NgbTooltipModule} from "@ng-bootstrap/ng-bootstrap";
+import {
+  NgbDatepickerModule,
+  NgbDropdownModule,
+  NgbPaginationModule,
+  NgbTooltipModule
+} from "@ng-bootstrap/ng-bootstrap";
 import {fontAwesomeIcons} from "../util/font-awesome-icons";
 import {FormatDatePipe} from "../util/pipe/format-date.pipe";
-import {FormatRolePipe} from "../util/pipe/formatRole.pipe";
+import {FormatRolePipe} from "../util/pipe/format-role.pipe";
+import {RouterModule} from "@angular/router";
+import {ReactiveFormsModule} from "@angular/forms";
+import {NgSelectModule} from "@ng-select/ng-select";
+import {FormatEmployeesPipe} from "../util/pipe/format-employees.pipe";
 
 
 
 @NgModule({
-  declarations: [SortDirective, SortByDirective, FormatDatePipe, FormatRolePipe],
+  declarations: [SortDirective, SortByDirective, FormatDatePipe, FormatRolePipe, FormatEmployeesPipe],
   imports: [
     CommonModule
   ],
@@ -23,7 +32,13 @@ import {FormatRolePipe} from "../util/pipe/formatRole.pipe";
     NgbPaginationModule,
     NgbTooltipModule,
     FormatDatePipe,
-    FormatRolePipe
+    FormatRolePipe,
+    FormatEmployeesPipe,
+    RouterModule,
+    NgbDropdownModule,
+    ReactiveFormsModule,
+    NgbDatepickerModule,
+    NgSelectModule
   ]
 })
 export class EntityModule {

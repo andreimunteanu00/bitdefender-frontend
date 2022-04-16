@@ -1,23 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ASC, DESC, ITEMS_PER_PAGE, SORT} from "../../../util/constants";
-import {EmployeeService} from "../service/employee.service";
-import {combineLatest} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
-import {IEmployee} from "../employee.model";
-import {HttpHeaders, HttpResponse} from "@angular/common/http";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {EmployeeDeleteDialogComponent} from "../delete/employee-delete-dialog.component";
+import {HttpHeaders, HttpResponse} from "@angular/common/http";
+import {EmployeeDeleteDialogComponent} from "../../employee/delete/employee-delete-dialog.component";
 import Swal from "sweetalert2";
-import {IRole} from "../../role/role.model";
+import {combineLatest} from "rxjs";
+import {ITeam} from "../team.model";
+import {TeamService} from "../service/team.service";
+import {IEmployee} from "../../employee/employee.model";
+import {TeamDeleteDialogComponent} from "../delete/team-delete-dialog.component";
 
 @Component({
-  selector: 'app-employee',
-  templateUrl: './employee.component.html',
-  styleUrls: ['./employee.component.scss']
+  selector: 'app-team',
+  templateUrl: './team.component.html',
+  styleUrls: ['./team.component.scss']
 })
-export class EmployeeComponent implements OnInit {
+export class TeamComponent implements OnInit {
 
-  employees: IEmployee[] | undefined;
+  teams: ITeam[] | undefined;
   totalItems = 0;
   itemsPerPage = ITEMS_PER_PAGE;
   page?: number;
@@ -27,7 +28,7 @@ export class EmployeeComponent implements OnInit {
   ngbPaginationPage = 1;
 
   constructor(
-    private employeeService: EmployeeService,
+    private teamservice: TeamService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
     protected modalService: NgbModal
@@ -41,14 +42,14 @@ export class EmployeeComponent implements OnInit {
     this.isLoading = true;
     const pageToLoad: number = page ?? this.page ?? 1;
 
-    this.employeeService
+    this.teamservice
       .get({
         page: pageToLoad - 1,
         size: this.itemsPerPage,
         sort: this.sort(),
       })
       .subscribe(
-        (res: HttpResponse<IEmployee[]>) => {
+        (res: HttpResponse<ITeam[]>) => {
           this.isLoading = false;
           this.onSuccess(res.body, res.headers, pageToLoad, !dontNavigate);
         },
@@ -59,9 +60,9 @@ export class EmployeeComponent implements OnInit {
       );
   }
 
-  delete(employee: IEmployee): void {
-    const modalRef = this.modalService.open(EmployeeDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.employee = employee;
+  delete(team: ITeam): void {
+    const modalRef = this.modalService.open(TeamDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.team = team;
     modalRef.closed.subscribe(reason => {
       if (reason === 'deleted') {
         Swal.fire({
@@ -74,7 +75,11 @@ export class EmployeeComponent implements OnInit {
     });
   }
 
-  protected onSuccess(data: IEmployee[] | null, headers: HttpHeaders, page: number, navigate: boolean): void {
+  concatenateEmployees(employees: IEmployee[]) {
+    return employees.map(value => value.lastName + ' ' + value.firstName).join(', ');
+  }
+
+  protected onSuccess(data: ITeam[] | null, headers: HttpHeaders, page: number, navigate: boolean): void {
     this.totalItems = Number(headers.get('X-Total-Count'));
     this.page = page;
     if (navigate) {
@@ -86,14 +91,14 @@ export class EmployeeComponent implements OnInit {
         },
       });
     }
-    this.employees = data ?? [];
+    this.teams = data ?? [];
     this.ngbPaginationPage = this.page;
   }
 
   protected onError(): void {
     this.ngbPaginationPage = this.page ?? 1;
   }
-  
+
   protected sort(): string[] {
     const result = [this.predicate + ',' + (this.ascending ? ASC : DESC)];
     if (this.predicate !== 'id') {
@@ -101,7 +106,7 @@ export class EmployeeComponent implements OnInit {
     }
     return result;
   }
-  
+
   protected handleNavigation(): void {
     combineLatest([this.activatedRoute.data, this.activatedRoute.queryParamMap]).subscribe(([data, params]) => {
       const page = params.get('page');
@@ -116,5 +121,5 @@ export class EmployeeComponent implements OnInit {
       }
     });
   }
-  
+
 }
