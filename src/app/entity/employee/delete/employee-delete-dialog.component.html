@@ -1,0 +1,22 @@
+<form *ngIf="employee">
+  <div class="modal-header">
+    <h4 class="modal-title">Confirm delete operation</h4>
+    <button type="button" class="btn btn-close" data-dismiss="modal" aria-hidden="true" (click)="cancel()"></button>
+  </div>
+
+  <div class="modal-body">
+    <p>
+      Are you sure you want to delete this employee?
+    </p>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+      <fa-icon icon="ban"></fa-icon>&nbsp;Cancel
+    </button>
+
+    <button type="button" (click)="confirmDelete(employee.id!)" class="btn btn-danger">
+      <fa-icon icon="times"></fa-icon> Delete
+    </button>
+  </div>
+</form>

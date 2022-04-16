@@ -1,0 +1,100 @@
+<div class="card" style="padding: 3em">
+  <div class="add-button page-heading">
+    <button
+        class="btn btn-danger"
+        [routerLink]="['new']"
+        type="button"
+    >
+      <span>Add team </span>
+      <fa-icon icon="add"></fa-icon>
+    </button>
+    <span *ngIf="teams && teams.length > 0">
+      <item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"> </item-count>
+    </span>
+  </div>
+  <div class="card-body">
+    <div *ngIf="teams?.length === 0">
+      <span>No role found</span>
+    </div>
+    <div class="table-responsive d-flex justify-content-around" *ngIf="teams && teams.length > 0">
+      <table class="table table-hover table-striped col-centered text-center" aria-describedby="page-heading">
+        <thead class="my-table-head">
+        <tr sort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th scope="col" sortBy="name">
+            <span>Name</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" sortBy="createdDate">
+            <span>Created date </span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th>
+            <span>Employees </span>
+          </th>
+          <th scope="col" sortBy="manager.name">
+            <span>Manager </span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" class="col-ms-1"></th>
+        </tr>
+        </thead>
+        <tbody class="text-center">
+        <tr *ngFor="let team of teams" data-cy="entityTable">
+          <td>{{ team?.name }}</td>
+          <td>{{ team?.createdDate |formatDate }}</td>
+          <td>
+            <span *ngIf="team?.employees" ngbTooltip="{{ concatenateEmployees(team.employees!) }}" triggers="mouseenter:mouseleave">
+              {{ concatenateEmployees(team.employees!).length > 30 ?
+                (concatenateEmployees(team.employees!) | slice: 0: 30) + '...' :
+                concatenateEmployees(team.employees!) }}
+            </span>
+          </td>
+          <td>{{ team?.manager?.lastName + ' ' + team?.manager?.firstName }}</td>
+          <td class="overflow-hidden">
+            <div ngbDropdown container="body">
+              <button id="casefile-dropdown-toggle{{ team.id }}" class="fa fa-ellipsis btn" ngbDropdownToggle>
+              </button>
+              <div ngbDropdownMenu>
+                <button
+                    type="submit"
+                    ngbDropdownItem
+                    [routerLink]="[team.id, 'edit']"
+                    class="btn btn-primary btn-sm btn-pill"
+                    triggers="mouseenter:mouseleave"
+                    ngbTooltip="Edit"
+                >
+                  <fa-icon icon="pencil-alt"></fa-icon>
+                </button>
+                <button
+                    type="submit"
+                    ngbDropdownItem
+                    (click)="delete(team)"
+                    class="btn btn-primary btn-sm btn-pill"
+                    triggers="mouseenter:mouseleave"
+                    ngbTooltip="Delete"
+                >
+                  <fa-icon icon="remove"></fa-icon>
+                </button>
+              </div>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div *ngIf="teams && teams.length > 0">
+  <div id="ngb-pagination" class="pagination">
+    <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="3"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+    >
+    </ngb-pagination>
+  </div>
+</div>
