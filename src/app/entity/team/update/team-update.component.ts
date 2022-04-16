@@ -56,7 +56,6 @@ export class TeamUpdateComponent implements OnInit {
     } else {
       this.subscribeToSaveResponse(this.teamService.create(county));
     }
-    this.previousState();
   }
 
   previousState(): void {
@@ -77,6 +76,7 @@ export class TeamUpdateComponent implements OnInit {
       timer: 3000,
     });
     this.isSaving = false;
+    this.previousState();
   }
 
   protected onSaveError(): void {
@@ -86,6 +86,7 @@ export class TeamUpdateComponent implements OnInit {
       timer: 3000,
     });
     this.isSaving = false;
+    this.previousState();
   }
 
   protected updateForm(team: ITeam): void {

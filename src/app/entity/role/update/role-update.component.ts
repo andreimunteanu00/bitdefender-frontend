@@ -47,7 +47,6 @@ export class RoleUpdateComponent implements OnInit {
     } else {
       this.subscribeToSaveResponse(this.roleService.create(county));
     }
-    this.previousState();
   }
 
   previousState(): void {
@@ -68,6 +67,7 @@ export class RoleUpdateComponent implements OnInit {
       timer: 3000,
     });
     this.isSaving = false;
+    this.previousState();
   }
 
   protected onSaveError(): void {
@@ -77,6 +77,7 @@ export class RoleUpdateComponent implements OnInit {
       timer: 3000,
     });
     this.isSaving = false;
+    this.previousState();
   }
 
   protected updateForm(role: IRole): void {

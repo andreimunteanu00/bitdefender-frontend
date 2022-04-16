@@ -65,7 +65,6 @@ export class EmployeeUpdateComponent implements OnInit {
     } else {
       this.subscribeToSaveResponse(this.employeeService.create(county));
     }
-    this.previousState();
   }
 
   previousState(): void {
@@ -86,6 +85,7 @@ export class EmployeeUpdateComponent implements OnInit {
       timer: 3000,
     });
     this.isSaving = false;
+    this.previousState();
   }
 
   protected onSaveError(): void {
@@ -95,6 +95,7 @@ export class EmployeeUpdateComponent implements OnInit {
       timer: 3000,
     });
     this.isSaving = false;
+    this.previousState();
   }
 
   protected updateForm(employee: IEmployee): void {
