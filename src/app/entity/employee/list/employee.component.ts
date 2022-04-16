@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ASC, DESC, ITEMS_PER_PAGE, SORT} from "../../../util/constants";
 import {EmployeeService} from "../service/employee.service";
 import {combineLatest} from "rxjs";
@@ -8,7 +8,6 @@ import {HttpHeaders, HttpResponse} from "@angular/common/http";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {EmployeeDeleteDialogComponent} from "../delete/employee-delete-dialog.component";
 import Swal from "sweetalert2";
-import {IRole} from "../../role/role.model";
 
 @Component({
   selector: 'app-employee',
@@ -27,7 +26,7 @@ export class EmployeeComponent implements OnInit {
   ngbPaginationPage = 1;
 
   constructor(
-    private employeeService: EmployeeService,
+    protected employeeService: EmployeeService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
     protected modalService: NgbModal

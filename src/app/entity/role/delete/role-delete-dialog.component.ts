@@ -11,7 +11,10 @@ export class RoleDeleteDialogComponent implements OnInit {
 
   role?: IRole;
 
-  constructor(protected roleService: RoleService,  protected activeModal: NgbActiveModal) { }
+  constructor(
+    protected roleService: RoleService,
+    protected activeModal: NgbActiveModal
+  ) {}
 
   ngOnInit(): void {
   }

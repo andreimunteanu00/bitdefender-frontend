@@ -5,14 +5,16 @@ import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-employee-delete-dialog',
-  templateUrl: './employee-delete-dialog.component.html',
-  styles: []
+  templateUrl: './employee-delete-dialog.component.html'
 })
 export class EmployeeDeleteDialogComponent implements OnInit {
 
   employee?: IEmployee;
 
-  constructor(protected employeeService: EmployeeService,  protected activeModal: NgbActiveModal) { }
+  constructor(
+    protected employeeService: EmployeeService,
+    protected activeModal: NgbActiveModal
+  ) {}
 
   ngOnInit(): void {
   }

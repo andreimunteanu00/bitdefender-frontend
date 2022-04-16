@@ -22,7 +22,7 @@
               />
             </div>
             <div class="form-group">
-              <label class="form-control-label">Manager</label>
+              <label class="form-control-label">Manager (optional) </label>
               <ng-select
                   formControlName="manager"
                   [items]="employees"
@@ -41,16 +41,15 @@
           </div>
           <div class="text-right" style="margin-top: 1em ">
             <button type="button" class="btn btn-danger" style="margin-right: 0.3rem" (click)="previousState()">
-              <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+              <fa-icon icon="ban"></fa-icon> Cancel
             </button>
             <button
                 type="submit"
-                id="save-entity"
                 data-cy="entityCreateSaveButton"
                 [disabled]="editForm.invalid || isSaving"
                 class="btn btn-success"
             >
-              <fa-icon icon="save"></fa-icon>&nbsp;Save
+              <fa-icon icon="save"></fa-icon> Save
             </button>
           </div>
         </form>

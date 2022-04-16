@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { EmployeeComponent } from "../list/employee.component";
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {EmployeeComponent} from "../list/employee.component";
 import {EmployeeUpdateComponent} from "../update/employee-update.component";
 
 

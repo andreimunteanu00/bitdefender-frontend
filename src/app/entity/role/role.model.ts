@@ -7,9 +7,9 @@ export interface IRole {
 }
 
 export class Role implements IRole {
-    constructor(
-        public id?: number,
-        public name?: string | null,
-        public createdDate?: dayjs.Dayjs | null
-    ) {}
+  constructor(
+    public id?: number,
+    public name?: string | null,
+    public createdDate?: dayjs.Dayjs | null
+  ) {}
 }

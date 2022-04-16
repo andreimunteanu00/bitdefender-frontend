@@ -1,9 +1,8 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {SortDirective} from "../util/directive/sort.directive";
 import {SortByDirective} from "../util/directive/sort-by.directive";
 import {FaIconLibrary, FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-import {ItemCountComponent} from "../util/pagination/item-count.component";
 import {
   NgbDatepickerModule,
   NgbDropdownModule,
@@ -17,7 +16,6 @@ import {RouterModule} from "@angular/router";
 import {ReactiveFormsModule} from "@angular/forms";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormatEmployeesPipe} from "../util/pipe/format-employees.pipe";
-
 
 
 @NgModule({

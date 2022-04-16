@@ -8,9 +8,6 @@
       <span>Add role </span>
       <fa-icon icon="add"></fa-icon>
     </button>
-    <span *ngIf="roles && roles.length > 0">
-      <item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"> </item-count>
-    </span>
   </div>
   <div class="card-body">
     <div *ngIf="roles?.length === 0">
@@ -37,7 +34,7 @@
           <td>{{ role?.createdDate | formatDate }}</td>
           <td class="overflow-hidden">
             <div ngbDropdown container="body">
-              <button id="casefile-dropdown-toggle{{ role.id }}" class="fa fa-ellipsis btn" ngbDropdownToggle>
+              <button class="fa fa-ellipsis btn" ngbDropdownToggle>
               </button>
               <div ngbDropdownMenu>
                 <button
@@ -70,7 +67,7 @@
   </div>
 </div>
 <div *ngIf="roles && roles.length > 0">
-  <div id="ngb-pagination" class="pagination">
+  <div class="pagination">
     <ngb-pagination
         [collectionSize]="totalItems"
         [(page)]="ngbPaginationPage"

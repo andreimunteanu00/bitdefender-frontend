@@ -119,5 +119,4 @@ export const fontAwesomeIcons = [
   faCalendarAlt,
   faLink,
   faFile,
-  // jhipster-needle-add-icon-import
 ];

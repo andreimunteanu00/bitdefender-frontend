@@ -116,7 +116,8 @@ export class EmployeeUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       firstName: this.editForm.get(['firstName'])!.value,
       lastName: this.editForm.get(['lastName'])!.value,
-      birthDate: this.editForm.get(['birthDate'])!.value ? dayjs(this.editForm.get(['birthDate'])?.value, 'YYYY-MM-DD') : undefined,
+      birthDate: this.editForm.get(['birthDate'])!.value ?
+        dayjs(this.editForm.get(['birthDate'])?.value, 'YYYY-MM-DD') : undefined,
       email: this.editForm.get(['email'])!.value,
       roles: this.editForm.get(['roles'])!.value,
       team: this.editForm.get(['team'])!.value,

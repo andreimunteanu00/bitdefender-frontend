@@ -26,6 +26,11 @@ export class EmployeeService {
       .pipe(map((res: HttpResponse<IEmployee>) => this.convertDateFromServer(res)));
   }
 
+  getEmployeesThatAreNotManagers() {
+    return this.http
+      .get<IEmployee[]>(`${this.url}/freemanager`, { observe: "response"});
+  }
+
   create(employee: IEmployee): Observable<HttpResponse<IEmployee>> {
     return this.http.post<IEmployee>(this.url, employee, { observe: 'response' });
   }
@@ -43,11 +48,6 @@ export class EmployeeService {
       res.body.birthDate = res.body.birthDate ? dayjs.unix(res.body.birthDate as unknown as number) : undefined;
     }
     return res;
-  }
-
-  getEmployeesThatAreNotManagers() {
-    return this.http
-      .get<IEmployee[]>(`${this.url}/freemanager`, { observe: "response"});
   }
 
   protected convertDateArrayFromServer(res: HttpResponse<IEmployee[]>): HttpResponse<IEmployee[]> {

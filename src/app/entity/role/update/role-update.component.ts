@@ -4,7 +4,7 @@ import {RoleService} from "../service/role.service";
 import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs";
 import {HttpResponse} from "@angular/common/http";
-import {IRole, Role} from "../../role/role.model";
+import {IRole, Role} from "../role.model";
 import {finalize} from "rxjs/operators";
 import Swal from "sweetalert2";
 import * as dayjs from "dayjs";
