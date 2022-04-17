@@ -28,7 +28,8 @@ export class EmployeeService {
 
   getEmployeesThatAreNotManagers() {
     return this.http
-      .get<IEmployee[]>(`${this.url}/freemanager`, { observe: "response"});
+      .get<IEmployee[]>(`${this.url}/free/manager`, { observe: "response"})
+      .pipe(map((res: HttpResponse<IEmployee[]>) => this.convertDateArrayFromServer(res)));
   }
 
   create(employee: IEmployee): Observable<HttpResponse<IEmployee>> {
